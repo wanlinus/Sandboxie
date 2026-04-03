@@ -60,6 +60,16 @@ jobs:
           sed -i -E "s/(20[0-9]{2} - )20[0-9]{2}( David Xanatos)/\1${YEAR}\2/g" \
             Sandboxie/install/LICENSE.TXT
 
+          # LICENSE.Plus (Sandboxie Plus repository root license)
+          # Covers "2020 - XXXX David Xanatos"
+          sed -i -E "s/(20[0-9]{2} - )20[0-9]{2}( David Xanatos)/\1${YEAR}\2/g" \
+            LICENSE.Plus
+
+          # SandboxiePlus/SandMan/LICENSE
+          # Covers "2020 - XXXX David Xanatos"
+          sed -i -E "s/(20[0-9]{2} - )20[0-9]{2}( David Xanatos)/\1${YEAR}\2/g" \
+            SandboxiePlus/SandMan/LICENSE
+
           git diff --exit-code
           echo "deploy=$?" >> $GITHUB_OUTPUT
 
