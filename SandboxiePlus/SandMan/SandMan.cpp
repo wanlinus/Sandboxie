@@ -3112,6 +3112,11 @@ void CSandMan::OnMenuHover(QAction* action)
 
 void CSandMan::CheckSupport()
 {
+	// Disable all certificate support reminders
+	// All Plus features are available without certificate restrictions
+	return;
+
+	/* Original code - disabled:
 	if (CSupportDialog::CheckSupport())
 		return;
 
@@ -3128,6 +3133,7 @@ void CSandMan::CheckSupport()
 		else if (CSettingsWindow::CertRefreshRequired())
 			CSettingsWindow::TryRefreshCert(this, this, SLOT(OnCertData(const QByteArray&, const QVariantMap&)));
 	}
+	*/
 }
 
 void CSandMan::OnCertData(const QByteArray& Certificate, const QVariantMap& Params)
