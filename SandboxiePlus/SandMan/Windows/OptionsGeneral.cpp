@@ -76,7 +76,8 @@ void COptionsWindow::CreateGeneral()
 	connect(ui.lblBoxInfo, SIGNAL(linkActivated(const QString&)), theGUI, SLOT(OpenUrl(const QString&)));
 
 	ui.lblSupportCert->setVisible(false);
-	if (!g_CertInfo.active)
+	// All features are now enabled by default, no cert restrictions
+	/*if (!g_CertInfo.active)
 	{
 		ui.lblSupportCert->setVisible(true);
 		connect(ui.lblSupportCert, SIGNAL(linkActivated(const QString&)), theGUI, SLOT(OpenUrl(const QString&)));
@@ -90,7 +91,7 @@ void COptionsWindow::CreateGeneral()
 			QStandardItem* item = model->item(i);
 			item->setFlags(disabled ? item->flags() & ~Qt::ItemIsEnabled : item->flags() | Qt::ItemIsEnabled);
 		}
-	}
+	}*/
 
 	if (!g_CertInfo.opt_sec) {
 		QWidget* ExWidgets[] = { ui.chkSecurityMode, ui.chkLockDown, ui.chkRestrictDevices, ui.chkPrivacy, ui.chkUseSpecificity, ui.chkNoSecurityIsolation, ui.chkNoSecurityFiltering, ui.chkHostProtect, NULL };
@@ -929,8 +930,9 @@ void COptionsWindow::UpdateBoxSecurity()
 
 void COptionsWindow::OnSecurityMode()
 {
-	if (ui.chkSecurityMode->isChecked() || (ui.chkLockDown->isEnabled() && ui.chkLockDown->isChecked()) || (ui.chkRestrictDevices->isEnabled() && ui.chkRestrictDevices->isChecked()))
-		theGUI->CheckCertificate(this, 0);
+	// Certificate check disabled - all features enabled by default
+	/*if (ui.chkSecurityMode->isChecked() || (ui.chkLockDown->isEnabled() && ui.chkLockDown->isChecked()) || (ui.chkRestrictDevices->isEnabled() && ui.chkRestrictDevices->isChecked()))
+		theGUI->CheckCertificate(this, 0);*/
 
 	UpdateBoxSecurity();
 
@@ -1239,10 +1241,11 @@ void COptionsWindow::OnVmRead()
 
 void COptionsWindow::OnDiskChanged()
 {
-	if (sender() == ui.chkEncrypt) {
+	// Certificate check disabled - all features enabled by default
+	/*if (sender() == ui.chkEncrypt) {
 		if (ui.chkEncrypt->isChecked())
 			theGUI->CheckCertificate(this, 1);
-	}
+	}*/
 
 	if (ui.chkRamBox->isChecked()) {
 		ui.chkEncrypt->setEnabled(false);
