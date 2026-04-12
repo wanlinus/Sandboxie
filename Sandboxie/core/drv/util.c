@@ -527,28 +527,32 @@ _FX BOOLEAN MyIsTestSigning(void)
 
 _FX BOOLEAN MyIsCallerSigned(void)
 {
-    NTSTATUS status;
+	// 禁用签名验证 - 所有 Plus 功能无需签名验证
+	return TRUE;
 
-    // in test signing mode don't verify the signature
-    if (Driver_OsTestSigning)
-        return TRUE;
+	/* 原始代码 - 已禁用:
+	NTSTATUS status;
 
-    // if this is a node locked develoepr certificate don't verify the signature
-    if (Verify_CertInfo.type == eCertDeveloper && Verify_CertInfo.active)
-        return TRUE;
+	// in test signing mode don't verify the signature
+	if (Driver_OsTestSigning)
+		return TRUE;
 
-    status = KphVerifyCurrentProcess();
+	// if this is a node locked develoepr certificate don't verify the signature
+	if (Verify_CertInfo.type == eCertDeveloper && Verify_CertInfo.active)
+		return TRUE;
 
-    //DbgPrint("Image Signature Verification result: 0x%08x\r\n", status);
+	status = KphVerifyCurrentProcess();
 
-    if (!NT_SUCCESS(status)) {
+	//DbgPrint("Image Signature Verification result: 0x%08x
+", status);
 
-        //Log_Status(MSG_1330, 0, status);
+	if (!NT_SUCCESS(status)) {
+		//Log_Status(MSG_1330, 0, status);
+		return FALSE;
+	}
 
-        return FALSE;
-    }
-
-    return TRUE;
+	return TRUE;
+	*/
 }
 
 
