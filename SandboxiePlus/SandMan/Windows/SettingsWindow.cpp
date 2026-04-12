@@ -3582,17 +3582,8 @@ bool CSettingsWindow::ApplyCertificate(const QByteArray &Certificate, QWidget* w
 
 bool CSettingsWindow::CertRefreshRequired()
 {
-	if (g_CertInfo.active) {
-		if (COnlineUpdater::IsLockRequired() && g_CertInfo.type != eCertEternal && g_CertInfo.type != eCertContributor)
-		{
-			if(!g_CertInfo.locked || g_CertInfo.grace_period)
-				return true;
-		}
-	} else {
-		if (g_CertInfo.lock_req && !(g_CertInfo.expired || g_CertInfo.outdated))
-			return true;
-	}
-
+	// Disable mandatory certificate refresh/lock checks
+	// All Plus features are available without certificate restrictions
 	return false;
 }
 
