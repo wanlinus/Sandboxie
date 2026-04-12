@@ -199,6 +199,44 @@ jobs:
           retention-days: 60
 
 
+      - name: Package Sandboxie x64
+        shell: cmd
+        run: |
+          cd Installer
+          7z a -t7z -m0=lzma2 -mx=9 Sandboxie-Plus-x64-v${{ github.run_number }}.7z SbiePlus_x64*
+
+      - name: Upload x64 Package to packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: Installer/Sandboxie-Plus-x64-v${{ github.run_number }}.7z
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Release to GitHub Releases
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Sandboxie-Plus v${{ github.run_number }}
+          body: |
+            ## 自动构建版本 v${{ github.run_number }}
+            
+            此版本由 CI 自动构建生成。
+            
+            ### 包含文件
+            - Sandboxie-Plus-x64-v${{ github.run_number }}.7z
+            
+            ### 安装说明
+            1. 下载对应架构的压缩包
+            2. 解压到任意目录
+            3. 运行 SandMan.exe
+          files: Installer/Sandboxie-Plus-x64-v${{ github.run_number }}.7z
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
   Build_ARM64_Qt6:
@@ -308,3 +346,42 @@ jobs:
           path: |
             Installer/SbiePlus_a64/*
           retention-days: 60
+
+      - name: Package Sandboxie ARM64
+        shell: cmd
+        run: |
+          cd Installer
+          7z a -t7z -m0=lzma2 -mx=9 Sandboxie-Plus-ARM64-v${{ github.run_number }}.7z SbiePlus_a64*
+
+      - name: Upload ARM64 Package to packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: Installer/Sandboxie-Plus-ARM64-v${{ github.run_number }}.7z
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Release ARM64 to GitHub Releases
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}-arm64
+          name: Sandboxie-Plus ARM64 v${{ github.run_number }}
+          body: |
+            ## 自动构建版本 v${{ github.run_number }} (ARM64)
+            
+            此版本由 CI 自动构建生成。
+            
+            ### 包含文件
+            - Sandboxie-Plus-ARM64-v${{ github.run_number }}.7z
+            
+            ### 安装说明
+            1. 下载对应架构的压缩包
+            2. 解压到任意目录
+            3. 运行 SandMan.exe
+          files: Installer/Sandboxie-Plus-ARM64-v${{ github.run_number }}.7z
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
