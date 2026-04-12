@@ -518,8 +518,9 @@ void CBoxTypePage::OnBoxTypChanged()
 	m_pInfoLabel->setText(theGUI->GetBoxDescription(BoxType));
 #endif
 
-    if(BoxType != CSandBoxPlus::eDefault || BlackBox)
-		theGUI->CheckCertificate(this, BlackBox ? 1 : 0);
+    // Certificate check disabled - all features enabled by default
+    /*if(BoxType != CSandBoxPlus::eDefault || BlackBox)
+		theGUI->CheckCertificate(this, BlackBox ? 1 : 0);*/
 
     emit completeChanged();
 }

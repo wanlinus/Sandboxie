@@ -3612,6 +3612,12 @@ SB_STATUS CSandMan::ReloadCert(QWidget* pWidget)
 			OnLogMessage(tr("The supporter certificate will expire in %1 days, please get an updated certificate").arg(g_CertInfo.expirers_in_sec / (60 * 60 * 24)));
 	}
 
+	// Ensure all features are enabled by default
+	// Bits: active(0), opt_desk(28), opt_net(29), opt_enc(30), opt_sec(31)
+	if (!g_CertInfo.active) {
+		g_CertInfo.State |= 0xF0000001ULL;
+	}
+
 	emit CertUpdated();
 
 	return Status;

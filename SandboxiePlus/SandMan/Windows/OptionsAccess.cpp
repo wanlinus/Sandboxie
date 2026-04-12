@@ -57,10 +57,11 @@ void COptionsWindow::CreateAccess()
 
 void COptionsWindow::OnAccessChangedEx()
 {
-	if (sender() == ui.chkPrivacy || sender() == ui.chkUseSpecificity) {
+	// Certificate check disabled - all features enabled by default
+	/*if (sender() == ui.chkPrivacy || sender() == ui.chkUseSpecificity) {
 		if (ui.chkPrivacy->isChecked() || (ui.chkUseSpecificity->isEnabled() && ui.chkUseSpecificity->isChecked()))
 			theGUI->CheckCertificate(this, 0);
-	}
+	}*/
 
 	UpdateAccessPolicy();
 

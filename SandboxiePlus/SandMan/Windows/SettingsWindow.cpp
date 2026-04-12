@@ -175,7 +175,9 @@ Qt::CheckState CSettingsWindow__Int2Chk(int state)
 quint32 g_FeatureFlags = 0;
 
 QByteArray g_Certificate;
-SCertInfo g_CertInfo = { 0 };
+// Modified to enable all features by default
+// Bits: active(0), opt_desk(28), opt_net(29), opt_enc(30), opt_sec(31)
+SCertInfo g_CertInfo = { 0xF0000001ULL };
 
 void COptionsWindow__AddCertIcon(QWidget* pOriginalWidget, bool bAdvanced = false);
 
@@ -1727,15 +1729,17 @@ void CSettingsWindow::LoadSettings()
 	ui.chkUpdateIssues->setCheckState(CSettingsWindow__Int2Chk(theConf->GetInt("Options/CheckForIssues", 2)));
 
 	//ui.chkUpdateTemplates->setEnabled(g_CertInfo.active && !g_CertInfo.expired);
-	ui.chkUpdateIssues->setEnabled(g_CertInfo.active && !g_CertInfo.expired);
+	//ui.chkUpdateIssues->setEnabled(g_CertInfo.active && !g_CertInfo.expired);
+	// All features enabled by default
 }
 
 void CSettingsWindow::OnRamDiskChange()
 {
-	if (sender() == ui.chkRamDisk) {
+	// Certificate check disabled - all features enabled by default
+	/*if (sender() == ui.chkRamDisk) {
 		if (ui.chkRamDisk->isChecked())
 			theGUI->CheckCertificate(this, -1);
-	}
+	}*/
 
 	if (ui.chkRamDisk->isChecked() && ui.txtRamLimit->text().isEmpty())
 		ui.txtRamLimit->setText(QString::number(2 * 1024 * 1024));
@@ -1759,18 +1763,19 @@ void CSettingsWindow::OnMoTWChange()
 	OnOptChanged();
 }
 
-void CSettingsWindow::OnVolumeChanged() 
-{ 
-	if (sender() == ui.chkSandboxUsb) {
+void CSettingsWindow::OnVolumeChanged()
+{
+	// Certificate check disabled - all features enabled by default
+	/*if (sender() == ui.chkSandboxUsb) {
 		if (ui.chkSandboxUsb->isChecked())
 			theGUI->CheckCertificate(this, -1);
-	}
+	}*/
 
-	ui.cmbUsbSandbox->setEnabled(ui.chkSandboxUsb->isChecked() && g_CertInfo.active);
-	ui.treeVolumes->setEnabled(ui.chkSandboxUsb->isChecked() && g_CertInfo.active);
+	ui.cmbUsbSandbox->setEnabled(ui.chkSandboxUsb->isChecked());
+	ui.treeVolumes->setEnabled(ui.chkSandboxUsb->isChecked());
 
-	if (!g_CertInfo.active)
-		return;
+	/*if (!g_CertInfo.active)
+		return;*/
 
 	m_VolumeChanged = true; 
 	OnOptChanged();

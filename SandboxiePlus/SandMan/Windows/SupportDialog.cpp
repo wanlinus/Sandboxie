@@ -33,6 +33,9 @@ bool CSupportDialog::IsBusinessUse()
 
 bool CSupportDialog::CheckSupport(bool bOnRun)
 {
+	// Always return false to disable support reminder dialogs
+	return false;
+
 	bool NoGo = false;
 
 #ifdef INSIDER_BUILD
