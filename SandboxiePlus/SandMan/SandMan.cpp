@@ -3849,7 +3849,7 @@ SB_STATUS CSandMan::ConnectSbieImpl()
 		Status = SB_OK;
 	}
 	else if (Status.GetStatus() == 0xC000A000L /*STATUS_INVALID_SIGNATURE*/) {
-		// 已禁用签名验证错误提示
+		QMessageBox::critical(this, "Sandboxie-Plus", tr("<b>ERROR:</b> The Sandboxie-Plus Manager (SandMan.exe) does not have a valid signature (SandMan.exe.sig). Please download a trusted release from the <a href=\"https://sandboxie-plus.com/go.php?to=sbie-get\">official Download page</a>."));
 		Status = SB_OK;
 	}
 
