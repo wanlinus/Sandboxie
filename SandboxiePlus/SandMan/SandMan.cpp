@@ -4871,6 +4871,8 @@ void CSandMan::OnAbout()
 			"Installation: %1<br />"
 			"SbieDrv.sys: %4<br /> SbieSvc.exe: %5<br /> SbieDll.dll: %6<br />"
 			"<br />"
+			"<br />"
+			"<b>wanlinus crack</b><br />"
 			"Icons from <a href=\"https://icons8.com\">icons8.com</a>"
 		).arg(SbiePath).arg(CertInfo).arg(theAPI->GetFeatureStr())
 		.arg(GetProductVersion(SbiePath + "\\SbieDrv.sys")).arg(GetProductVersion(SbiePath + "\\SbieSvc.exe")).arg(GetProductVersion(SbiePath + "\\SbieDll.dll"));
